@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.wokier.progress-maven-plugin</groupId>
 	<artifactId>progress-maven-plugin-test-modules</artifactId>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
@@ -17,11 +17,12 @@
 			<plugin>
 				<groupId>com.github.wokier.progress-maven-plugin</groupId>
 				<artifactId>progress-maven-plugin</artifactId>
-				<version>0.1</version>
+				<version>0.2-SNAPSHOT</version>
 				<executions>
 					<execution>
 						<goals>
 							<goal>display-progress</goal>
+							<goal>notify-progress</goal>
 						</goals>
 					</execution>
 				</executions>

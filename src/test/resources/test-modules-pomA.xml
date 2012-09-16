@@ -4,29 +4,9 @@
 	<parent>
 		<groupId>com.github.wokier.progress-maven-plugin</groupId>
 		<artifactId>progress-maven-plugin-test-modules</artifactId>
-		<version>0.1</version>
+		<version>0.2-SNAPSHOT</version>
 		<relativePath>./test-modules-pom.xml</relativePath>
 	</parent>
 	<artifactId>progress-maven-plugin-test-modulesA</artifactId>
-
-	<build>
-
-		<plugins>
-			<plugin>
-				<groupId>com.github.wokier.progress-maven-plugin</groupId>
-				<artifactId>progress-maven-plugin</artifactId>
-				<version>0.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>display-progress</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration></configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 
 </project>

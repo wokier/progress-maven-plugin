@@ -5,7 +5,7 @@ import java.io.File;
 import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
-public class ProgressMojoTest extends AbstractMojoTestCase {
+public class DisplayProgressMojoTest extends AbstractMojoTestCase {
 
     public void testExecute() throws Exception {
 
