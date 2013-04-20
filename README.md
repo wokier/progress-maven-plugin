@@ -22,3 +22,7 @@ Usage :
 		&lt;/executions&gt;
 	&lt;/plugin&gt;
 </pre>
+
+Release Notes :
+
+ - 0.3 2013-04-20 Maven Central Release

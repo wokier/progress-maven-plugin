@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.wokier.progress-maven-plugin</groupId>
 	<artifactId>progress-maven-plugin-test-1</artifactId>
-	<version>0.2</version>
+	<version>0.3</version>
 
 	<build>
 		<defaultGoal>validate</defaultGoal>
@@ -11,7 +10,7 @@
 			<plugin>
 				<groupId>com.github.wokier.progress-maven-plugin</groupId>
 				<artifactId>progress-maven-plugin</artifactId>
-				<version>0.2</version>
+				<version>0.3</version>
 				<executions>
 					<execution>
 						<goals>
