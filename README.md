@@ -3,6 +3,8 @@ progress-maven-plugin
 
 Maven Reactor Progress
 
+Display or notify the progress of a maven build, especially for a long multi-module build
+
 ---
 
 Usage :
