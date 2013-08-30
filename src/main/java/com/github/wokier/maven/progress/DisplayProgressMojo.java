@@ -17,30 +17,30 @@ import org.apache.maven.project.MavenProject;
  */
 public class DisplayProgressMojo extends AbstractMojo {
 
-    /**
-     * Reactor Sorted projects; provided by Maven
-     * 
-     * @parameter expression="${reactorProjects}"
-     */
-    List<MavenProject> reactorProjects;
+	/**
+	 * Reactor Sorted projects; provided by Maven
+	 * 
+	 * @parameter expression="${reactorProjects}"
+	 */
+	List<MavenProject> reactorProjects;
 
-    /**
-     * A list of every project in this reactor; provided by Maven
-     * 
-     * @parameter expression="${project}"
-     */
-    MavenProject currentProject;
+	/**
+	 * A list of every project in this reactor; provided by Maven
+	 * 
+	 * @parameter expression="${project}"
+	 */
+	MavenProject currentProject;
 
-    /**
-     * @see org.apache.maven.plugin.AbstractMojo#execute()
-     */
-    public void execute() throws MojoExecutionException, MojoFailureException {
+	/**
+	 * @see org.apache.maven.plugin.AbstractMojo#execute()
+	 */
+	public void execute() throws MojoExecutionException, MojoFailureException {
 
-	int projectIndex = reactorProjects.indexOf(currentProject) + 1;
-	int reactorProjectsCount = reactorProjects.size();
-	File currentProjectBasedir = currentProject.getBasedir();
+		int projectIndex = reactorProjects.indexOf(currentProject) + 1;
+		int reactorProjectsCount = reactorProjects.size();
+		File currentProjectBasedir = currentProject.getBasedir();
 
-	getLog().info("Reactor Progress: " + ProgressUtils.progress(projectIndex, reactorProjectsCount, currentProjectBasedir));
-    }
+		getLog().info("Reactor Progress: " + ProgressUtils.progress(projectIndex, reactorProjectsCount, currentProjectBasedir));
+	}
 
 }
