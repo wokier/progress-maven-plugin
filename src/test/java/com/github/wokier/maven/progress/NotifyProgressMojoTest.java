@@ -7,24 +7,24 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 public class NotifyProgressMojoTest extends AbstractMojoTestCase {
 
-    public void testExecute() throws Exception {
+	public void testExecute() throws Exception {
 
-	File testPom = new File("src/test/resources/test-1-pom.xml");
+		File testPom = new File("src/test/resources/test-1-pom.xml");
 
-	Mojo mojo = lookupMojo("notify-progress", testPom);
+		Mojo mojo = lookupMojo("notify-progress", testPom);
 
-	assertNotNull(mojo);
+		assertNotNull(mojo);
 
-    }
+	}
 
-    public void testExecuteModules() throws Exception {
+	public void testExecuteModules() throws Exception {
 
-	File testPom = new File("src/test/resources/test-modules-pom.xml");
+		File testPom = new File("src/test/resources/test-modules-pom.xml");
 
-	Mojo mojo = lookupMojo("notify-progress", testPom);
+		Mojo mojo = lookupMojo("notify-progress", testPom);
 
-	assertNotNull(mojo);
+		assertNotNull(mojo);
 
-    }
+	}
 
 }
