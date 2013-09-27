@@ -31,3 +31,8 @@ Release Notes :
  - 0.5 2013-08-30 Uses java-to-OS-notify v0.5
  - ~~0.4~~
  - 0.3 2013-04-20 Maven Central Release
+
+
+The plugin use https://github.com/wokier/java-to-OS-notify
+
+Have a look there to have pretty notifications
