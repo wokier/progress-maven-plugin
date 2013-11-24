@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.wokier.progress-maven-plugin</groupId>
 	<artifactId>progress-maven-plugin-test-1</artifactId>
-	<version>0.5</version>
+	<version>0.6</version>
 
 	<build>
 		<defaultGoal>validate</defaultGoal>
@@ -22,7 +22,7 @@
 			<plugin>
 				<groupId>com.github.wokier.progress-maven-plugin</groupId>
 				<artifactId>progress-maven-plugin</artifactId>
-				<version>0.5</version>
+				<version>0.6</version>
 				<executions>
 					<execution>
 						<goals>
