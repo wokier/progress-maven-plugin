@@ -2,6 +2,7 @@ package com.github.wokier.maven.progress;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -16,6 +17,8 @@ import org.apache.maven.project.MavenProject;
  * @phase validate
  */
 public class DisplayProgressMojo extends AbstractMojo {
+
+	private static AtomicInteger counter = new AtomicInteger(0);
 
 	/**
 	 * Reactor Sorted projects; provided by Maven
@@ -36,11 +39,11 @@ public class DisplayProgressMojo extends AbstractMojo {
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
 
-		int projectIndex = reactorProjects.indexOf(currentProject) + 1;
+		int next = counter.incrementAndGet();
 		int reactorProjectsCount = reactorProjects.size();
 		File currentProjectBasedir = currentProject.getBasedir();
 
-		getLog().info("Reactor Progress: " + ProgressUtils.progress(projectIndex, reactorProjectsCount, currentProjectBasedir));
+		getLog().info("Reactor Progress: " + ProgressUtils.progress(next, reactorProjectsCount, currentProjectBasedir));
 	}
 
 }
