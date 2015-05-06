@@ -10,6 +10,13 @@ import org.apache.maven.plugin.MojoExecutionException;
 public interface ProgressUpdatedCallback
 {
 
-    public void progressUpdated(final ReactorProgress progress) throws MojoExecutionException;
+    /**
+     * Contains the updated progress.
+     *
+     * @param progress the updated progress.
+     * @return <code>true</code> when a progress notification was sent, <code>false</code> otherwise
+     * @throws MojoExecutionException whenever processing the progress update failed
+     */
+    public boolean progressUpdated(final ReactorProgress progress) throws MojoExecutionException;
 
 }

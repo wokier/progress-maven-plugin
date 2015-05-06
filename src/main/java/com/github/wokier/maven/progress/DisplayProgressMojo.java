@@ -11,9 +11,11 @@ package com.github.wokier.maven.progress;
 public class DisplayProgressMojo extends AbstractProgressMojo {
 
     @Override
-    public void progressUpdated(ReactorProgress progress) {
+    public boolean progressUpdated(ReactorProgress progress) {
 
         getLog().info("Reactor Progress: " + progress.toString());
+
+        return true;
 
     }
 }

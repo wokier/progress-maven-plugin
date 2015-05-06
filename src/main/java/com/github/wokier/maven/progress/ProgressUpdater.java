@@ -7,6 +7,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.util.Date;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -18,8 +19,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * reactor is run with a 'clean' goal in combination with '--resume-from'. Also it is not clear what
  * this directory would be when running with '--resume-from' because there is no execution root.
  */
-public class ProgressUpdater
-{
+public class ProgressUpdater {
 
     private File file = null;
 
@@ -29,22 +29,21 @@ public class ProgressUpdater
 
     public ProgressUpdater(String directoryPath, String fileName) throws MojoExecutionException
     {
-
         createPropertiesFile(directoryPath, fileName);
     }
 
     private void createPropertiesFile(String directoryPath, String fileName)
-            throws MojoExecutionException
-    {
+            throws MojoExecutionException {
 
         File directory = new File(directoryPath);
         file = new File(directory, fileName);
 
-        try
-        {
+        try {
+
             directory.mkdirs();
             file.createNewFile();
             file.deleteOnExit(); // Make sure the file gets deleted also if the build fails.
+
         }
         catch (IOException e)
         {
@@ -63,38 +62,40 @@ public class ProgressUpdater
      * @throws MojoExecutionException when operations on the properties file fail
      */
     public void updateProgress(int currentReactorSize, File currentProjectBasedir,
-            ProgressUpdatedCallback callback) throws MojoExecutionException
-    {
+            ProgressUpdatedCallback callback) throws MojoExecutionException {
 
         ReactorProgress progress = null;
 
-        try
-        {
+        try {
+
             obtainLock();
 
             // Update the progress based on earlier progress recorded in the properties file.
             progress = ReactorProgress.loadFromPropertiesFile(file);
             progress.updateProgress(currentReactorSize, currentProjectBasedir);
 
-            progress.saveToPropertiesFile(file);
 
             // Let the callback handle the updated progress before releasing the lock.
             // This way progress is guaranteed to increase over time in a parallel build.
-            callback.progressUpdated(progress);
+            boolean notified = callback.progressUpdated(progress);
+
+            if (notified)
+            {
+                progress.setLastNotified(new Date());
+            }
+
+            progress.saveToPropertiesFile(file);
+
         }
-        catch (IOException e)
-        {
+        catch (IOException e) {
             throw new MojoExecutionException("Updating properties file failed", e);
         }
-        finally
-        {
+        finally {
 
-            try
-            {
+            try {
                 releaseLock();
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 throw new MojoExecutionException("Closing lock/channel file failed", e);
             }
 
@@ -106,10 +107,9 @@ public class ProgressUpdater
      */
     private void obtainLock() throws MojoExecutionException
     {
-        while (true)
-        {
-            try
-            {
+        while (true) {
+
+            try {
 
                 channel = new RandomAccessFile(file, "rw").getChannel();
                 // Blocking wait until file lock is obtained
@@ -118,41 +118,39 @@ public class ProgressUpdater
                 break;
 
             }
-            catch (IOException e)
-            {
+            catch (IOException e) {
                 throw new MojoExecutionException("I/O error while locking properties file", e);
             }
-            catch (OverlappingFileLockException e)
-            {
+            catch (OverlappingFileLockException e) {
+
                 // This is expected behavior because there may be multiple instances of this
                 // plugin (in the same JVM) trying to update the file. Synchronizing on an
                 // object won't help here because Maven can run another instance of the plugin
                 // in a different classloader.
-                try
-                {
+                try {
                     Thread.sleep(100L);
                 }
-                catch (InterruptedException ie)
-                {
+                catch (InterruptedException ie) {
                     throw new MojoExecutionException("Thread sleep error", ie);
                 }
                 continue;
             }
+
         }
     }
 
     /**
      * Releases the read/write lock of the properties file.
      */
-    private void releaseLock() throws IOException
-    {
-        if (lock != null)
-        {
+    private void releaseLock() throws IOException {
+
+        if (lock != null) {
             lock.release();
         }
-        if (channel != null)
-        {
+
+        if (channel != null) {
             channel.close();
         }
+
     }
 }

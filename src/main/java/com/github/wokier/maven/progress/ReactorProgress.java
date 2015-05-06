@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 
 /**
@@ -17,6 +18,8 @@ public class ReactorProgress
 
     private static final String REACTOR_SIZE_KEY = "reactor.size";
 
+    private static final String LAST_NOTIFIED_KEY = "last.notified";
+
     private int reactorSize = 0;
 
     private int reactorIndex = 0;
@@ -25,13 +28,20 @@ public class ReactorProgress
 
     private String projectBaseDir;
 
-    public String getProjectBaseDir() {
-        return projectBaseDir;
-    }
+    private Date lastNotified = new Date(0);
 
-    public ReactorProgress(int reactorIndex, int reactorSize) {
+    public ReactorProgress(int reactorIndex, int reactorSize, Date lastNotified) {
         this.reactorIndex = reactorIndex;
         this.reactorSize = reactorSize;
+        this.lastNotified = lastNotified;
+    }
+
+    public Date getLastNotified() {
+        return lastNotified;
+    }
+
+    public String getProjectBaseDir() {
+        return projectBaseDir;
     }
 
     public int getReactorIndex() {
@@ -44,6 +54,11 @@ public class ReactorProgress
 
     public int getReactorSize() {
         return reactorSize;
+    }
+
+    public void setLastNotified(Date lastNotified)
+    {
+        this.lastNotified = lastNotified;
     }
 
     public void updateProgress(int currentReactorSize, File currentProjectBasedir) {
@@ -67,8 +82,9 @@ public class ReactorProgress
 
             int reactorIndex = Integer.valueOf(properties.getProperty(REACTOR_INDEX_KEY, "0"));
             int reactorSize = Integer.valueOf(properties.getProperty(REACTOR_SIZE_KEY, "0"));
+            long lastNotified = Long.valueOf(properties.getProperty(LAST_NOTIFIED_KEY, "0"));
 
-            return new ReactorProgress(reactorIndex, reactorSize);
+            return new ReactorProgress(reactorIndex, reactorSize, new Date(lastNotified));
         }
         finally {
             if (fileInputStream != null) {
@@ -81,6 +97,7 @@ public class ReactorProgress
         Properties properties = new Properties();
         properties.setProperty(REACTOR_INDEX_KEY, Integer.toString(reactorIndex));
         properties.setProperty(REACTOR_SIZE_KEY, Integer.toString(reactorSize));
+        properties.setProperty(LAST_NOTIFIED_KEY, Long.toString(lastNotified.getTime()));
 
         FileOutputStream fileOutputStream = null;
         try {

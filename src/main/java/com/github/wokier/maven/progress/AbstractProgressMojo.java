@@ -46,6 +46,14 @@ public abstract class AbstractProgressMojo extends AbstractMojo implements Progr
     MavenSession session;
 
     /**
+     * The minimum interval that should have elapsed before a new progress notification is sent,
+     * default value is 0, i.e. instant notification. The final notification (100%) is always sent.
+     *
+     * @parameter expression="${progress.minimumNotifyMillis}" default-value="0"
+     */
+    String minimumNotifyMillis;
+
+    /**
      * @see org.apache.maven.plugin.AbstractMojo#execute()
      */
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -61,6 +69,6 @@ public abstract class AbstractProgressMojo extends AbstractMojo implements Progr
 
     }
 
-    public abstract void progressUpdated(final ReactorProgress progress) throws MojoExecutionException;
+    public abstract boolean progressUpdated(final ReactorProgress progress) throws MojoExecutionException;
 
 }

@@ -20,7 +20,17 @@ public class NotifyProgressMojo extends AbstractProgressMojo
 {
 
     @Override
-    public void progressUpdated(final ReactorProgress progress) throws MojoExecutionException {
+    public boolean progressUpdated(final ReactorProgress progress) throws MojoExecutionException {
+
+        boolean reactorFinished = progress.getReactorIndex() == progress.getReactorSize();
+        long millisSinceLastUpdate = System.currentTimeMillis() - progress.getLastNotified().getTime();
+
+        boolean shouldNotify = reactorFinished || millisSinceLastUpdate >= Long.valueOf(minimumNotifyMillis);
+
+        if (!shouldNotify)
+        {
+            return false;
+        }
 
         ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
         singleThreadExecutor.execute(new Runnable()
@@ -35,7 +45,7 @@ public class NotifyProgressMojo extends AbstractProgressMojo
         {
             singleThreadExecutor.awaitTermination(1, TimeUnit.SECONDS);
 
-            if (progress.getReactorIndex() == progress.getReactorSize())
+            if (reactorFinished)
             {
                 Thread.sleep(1000);
             }
@@ -45,6 +55,7 @@ public class NotifyProgressMojo extends AbstractProgressMojo
             throw new MojoExecutionException("Thread sleep error", e);
         }
 
+        return true;
     }
 
 }
