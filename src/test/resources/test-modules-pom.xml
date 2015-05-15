@@ -1,34 +1,34 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.wokier.progress-maven-plugin</groupId>
-	<artifactId>progress-maven-plugin-test-modules</artifactId>
-	<version>0.6</version>
-	<packaging>pom</packaging>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.wokier.progress-maven-plugin</groupId>
+    <artifactId>progress-maven-plugin-test-modules</artifactId>
+    <version>0.6</version>
+    <packaging>pom</packaging>
 
-	<modules>
-		<module>test-modules-pomA.xml</module>
-		<module>test-modules-pomB.xml</module>
-	</modules>
+    <modules>
+        <module>test-modules-pomA.xml</module>
+        <module>test-modules-pomB.xml</module>
+    </modules>
 
-	<build>
-		<defaultGoal>validate</defaultGoal>
-		<plugins>
-			<plugin>
-				<groupId>com.github.wokier.progress-maven-plugin</groupId>
-				<artifactId>progress-maven-plugin</artifactId>
-				<version>0.6</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>display-progress</goal>
-							<goal>notify-progress</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration></configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <defaultGoal>validate</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>com.github.wokier.progress-maven-plugin</groupId>
+                <artifactId>progress-maven-plugin</artifactId>
+                <version>0.6</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>display-progress</goal>
+                            <goal>notify-progress</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration></configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

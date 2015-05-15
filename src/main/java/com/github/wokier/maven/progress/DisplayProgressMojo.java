@@ -14,6 +14,7 @@ import org.apache.maven.project.MavenProject;
  * @author francois wauquier 'wokier'
  * @goal display-progress
  * @phase validate
+ * @threadSafe
  */
 public class DisplayProgressMojo extends AbstractMojo {
 
@@ -40,7 +41,12 @@ public class DisplayProgressMojo extends AbstractMojo {
 		int reactorProjectsCount = reactorProjects.size();
 		File currentProjectBasedir = currentProject.getBasedir();
 
-		getLog().info("Reactor Progress: " + ProgressUtils.progress(projectIndex, reactorProjectsCount, currentProjectBasedir));
-	}
+        String message = "Reactor Progress: " + ProgressUtils.progress(projectIndex, reactorProjectsCount, currentProjectBasedir);
+        log(message);
+    }
+
+    protected void log(String message) {
+        getLog().info(message);
+    }
 
 }

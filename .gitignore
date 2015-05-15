@@ -10,3 +10,4 @@
 /.project
 progress-maven-plugin.iml
 src/.DS_Store
+.idea/
